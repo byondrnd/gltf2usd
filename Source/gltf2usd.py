@@ -15,7 +15,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from pxr import Usd, UsdGeom, Sdf, UsdShade, Gf, UsdSkel, Vt, Ar, UsdUtils
+from pxr import Usd, UsdGeom, Sdf, UsdShade, Gf, UsdSkel, Vt, Ar, UsdUtils, Trace, Work, Plug, Kind, Pcp, Ndr, Sdr
 
 from _gltf2usd.gltf2loader import GLTF2Loader, PrimitiveMode, TextureWrap, MinFilter, MagFilter
 from _gltf2usd.gltf2usdUtils import GLTF2USDUtils
