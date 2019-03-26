@@ -57,7 +57,8 @@ RUN yum install -y libXi && \
   python USD/build_scripts/build_usd.py /var/task/USD
 
 # ENV PYTHONPATH ${PYTHONPATH}:/usr/local/USD/lib/python/ 
-# ENV PATH ${PATH}:/usr/local/USD/bin
+
+ENV PATH ${PATH}:/var/task/USD/bin
 
 RUN pip install pyinstaller
 
