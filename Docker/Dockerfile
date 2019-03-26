@@ -68,6 +68,8 @@ RUN cd /tmp && \
 RUN cd /tmp/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /tmp/gltf2usd/Source:/tmp/USD/lib/python/
 
+RUN mkdir -p /var/task/dist
+
 RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd
 
 RUN cd /tmp/USD/bin && \
