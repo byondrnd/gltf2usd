@@ -73,8 +73,9 @@ RUN cd /var/task && \
 RUN cd /var/task/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/var/task/USD/lib/python/
 
-RUN /var/task/gltf2usd/Source/dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc && \
-  /var/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
+RUN /var/task/gltf2usd/Source/dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc
+
+# RUN /var/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
 
 # RUN python gltf2usd/Source/gltf2usd.py -g /root/shared-folder/Bed_Option01.gltf  -o /root/shared-folder/output.usdc && \
 #   usdzip /root/shared-folder/ex.usdz --arkitAsset /root/shared-folder/output.usdc
