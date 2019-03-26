@@ -70,18 +70,19 @@ RUN cd /tmp/gltf2usd/Source && \
 
 RUN mkdir -p /var/task/dist
 
-RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd
+RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd && \
+  /var/task/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc && \
+  cp /tmp/gltf2usd/Docker/test/output.usdc /var/task/dist/output.usdc
 
-RUN cd /tmp/USD/bin && \
-  pyinstaller --onefile usdzip -p /tmp/USD/lib/python/
+RUN mkdir -p /var/task/dist/lib && mkdir -p /var/task/dist/bin && \
+  /tmp/USD/lib/. /var/task/dist/lib && cp -r /tmp/USD/bin/. /var/task/dist/bin
 
-RUN cp /tmp/USD/bin/dist/usdzip /var/task/dist/usdzip
+# RUN cd /tmp/USD/bin && \
+#   pyinstaller --onefile usdzip -p /tmp/USD/lib/python/ && \
+#   cp /tmp/USD/bin/dist/usdzip /var/task/dist/usdzip
 
-RUN /var/task/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc
-RUN cp /tmp/gltf2usd/Docker/test/output.usdc /var/task/dist/output.usdc
-
-# RUN /var/task/dist/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/gltf2usd/Docker/test/output.usdc
-# RUN cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
+RUN /tmp/USD/bin/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/gltf2usd/Docker/test/output.usdc && \
+  cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
 
 
 # ENV PYTHONPATH /tmp/USD/lib/python/
