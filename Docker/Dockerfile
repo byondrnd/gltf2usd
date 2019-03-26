@@ -68,7 +68,20 @@ RUN cd /tmp && \
 RUN cd /tmp/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /tmp/gltf2usd/Source:/tmp/USD/lib/python/
 
-ENV PYTHONPATH /tmp/USD/lib/python/
+RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd
+
+RUN cd /tmp/USD/bin && \
+  pyinstaller --onefile usdzip -p /tmp/USD/lib/python/
+
+RUN cp /tmp/USD/bin/dist/usdzip /var/task/dist/usdzip
+
+RUN /var/task/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc
+RUN /var/task/dist/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/gltf2usd/Docker/test/output.usdc
+
+RUN cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
+
+
+# ENV PYTHONPATH /tmp/USD/lib/python/
 
 # ENV PATH ${PATH}:/tmp/USD/bin/
 
