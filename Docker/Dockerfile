@@ -56,8 +56,8 @@ RUN yum install -y libXi && \
   yum install -y libXi-devel && \
   python USD/build_scripts/build_usd.py /var/task/USD
 
-ENV PYTHONPATH ${PYTHONPATH}:/var/task/USD/lib/python/ 
-ENV PATH ${PATH}:/var/task/USD/bin
+ENV PYTHONPATH /var/task/USD/lib/python/
+ENV PATH ${PATH}:/var/task/USD/bin/
 
 RUN pip install pyinstaller
 
@@ -72,7 +72,7 @@ RUN cd /var/task && \
 RUN cd /var/task/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/var/task/USD/lib/python/
 
-RUN /var/task/gltf2usd/Source/dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc
+#RUN /var/task/gltf2usd/Source/dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc
 
 # RUN /var/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
 
