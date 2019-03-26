@@ -54,14 +54,12 @@ RUN wget https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.zip/d
 
 RUN yum install -y libXi && \
   yum install -y libXi-devel && \
-  python USD/build_scripts/build_usd.py /var/task/USD
+  python USD/build_scripts/build_usd.py /usr/local/USD
 
-ENV PYTHONPATH /var/task/USD/lib/python/
-ENV PATH ${PATH}:/var/task/USD/bin/
 
 RUN pip install pyinstaller
 
-RUN cd /var/task && \
+RUN cd /usr/local && \
   git clone https://github.com/byondrnd/gltf2usd.git && \
   cd gltf2usd/Source && \
   pip install numpy --target=. && \
@@ -69,12 +67,13 @@ RUN cd /var/task && \
   pip install pillow --target=.
 
 
-RUN cd /var/task/gltf2usd/Source && \
-  pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/var/task/USD/lib/python/
+RUN cd /usr/local/gltf2usd/Source && \
+  pyinstaller --onefile gltf2usd.py -p /usr/local/gltf2usd/Source:/usr/local/USD/lib/python/
 
-#RUN /var/task/gltf2usd/Source/dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc
 
-# RUN /var/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
+# ENV PYTHONPATH /usr/local/USD/lib/python/
+# ENV PATH ${PATH}:/usr/local/USD/bin/
 
-# RUN python gltf2usd/Source/gltf2usd.py -g /root/shared-folder/Bed_Option01.gltf  -o /root/shared-folder/output.usdc && \
-#   usdzip /root/shared-folder/ex.usdz --arkitAsset /root/shared-folder/output.usdc
+# RUN /usr/local/gltf2usd/Source/dist/gltf2usd -g /usr/local/gltf2usd/Docker/test/input.gltf -o /usr/local/gltf2usd/Docker/test/output.usdc
+
+# RUN /usr/local/USD/bin/usdzip /usr/local/gltf2usd/Docker/test/output.usdz --arkitAsset /usr/local/gltf2usd/Docker/test/output.usdc
