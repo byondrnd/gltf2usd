@@ -71,7 +71,11 @@ RUN cd /var/task && \
 
 RUN pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/usr/task/USD/lib/python/
 
+RUN ./dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc && \
+  /usr/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
+
 RUN chmode -R +777 /var/task
+
 
 
 
