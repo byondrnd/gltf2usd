@@ -75,7 +75,7 @@ RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd && \
   cp /tmp/gltf2usd/Docker/test/output.usdc /var/task/dist/output.usdc
 
 RUN mkdir -p /var/task/dist/lib && mkdir -p /var/task/dist/bin && \
-  /tmp/USD/lib/. /var/task/dist/lib && cp -r /tmp/USD/bin/. /var/task/dist/bin
+ cp -r /tmp/USD/lib/. /var/task/dist/lib && cp -r /tmp/USD/bin/. /var/task/dist/bin
 
 # RUN cd /tmp/USD/bin && \
 #   pyinstaller --onefile usdzip -p /tmp/USD/lib/python/ && \
