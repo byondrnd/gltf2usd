@@ -1,10 +1,10 @@
 FROM lambci/lambda-base:build
 
 ENV PATH=/var/lang/bin:$PATH \
-    LD_LIBRARY_PATH=/var/lang/lib:$LD_LIBRARY_PATH \
-    AWS_EXECUTION_ENV=AWS_Lambda_nodejs8.10 \
-    NODE_PATH=/opt/nodejs/node8/node_modules:/opt/nodejs/node_modules:/var/runtime/node_modules:/var/runtime:/var/task:/var/runtime/node_modules \
-    npm_config_unsafe-perm=true
+  LD_LIBRARY_PATH=/var/lang/lib:$LD_LIBRARY_PATH \
+  AWS_EXECUTION_ENV=AWS_Lambda_nodejs8.10 \
+  NODE_PATH=/opt/nodejs/node8/node_modules:/opt/nodejs/node_modules:/var/runtime/node_modules:/var/runtime:/var/task:/var/runtime/node_modules \
+  npm_config_unsafe-perm=true
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://lambci.s3.amazonaws.com/fs/nodejs8.10.tgz | tar -zx -C /
@@ -69,7 +69,8 @@ RUN cd /var/task && \
   pip install pillow --target=.
 
 
-RUN pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/usr/task/USD/lib/python/
+RUN cd /var/task/gltf2usd/Source && \
+  pyinstaller --onefile gltf2usd.py -p /var/task/gltf2usd/Source:/usr/task/USD/lib/python/
 
 RUN ./dist/gltf2usd -g /var/task/gltf2usd/Docker/test/input.gltf -o /var/task/gltf2usd/Docker/test/output.usdc && \
   /usr/task/USD/bin/usdzip /var/task/gltf2usd/Docker/test/output.usdz --arkitAsset /var/task/gltf2usd/Docker/test/output.usdc
