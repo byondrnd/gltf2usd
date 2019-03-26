@@ -74,6 +74,8 @@ RUN cp /tmp/gltf2usd/Source/dist/gltf2usd /var/task/dist/gltf2usd && \
   /var/task/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc && \
   cp /tmp/gltf2usd/Docker/test/output.usdc /var/task/dist/output.usdc
 
+ENV PYTHONPATH /tmp/USD/lib/python/
+
 RUN mkdir -p /var/task/dist/lib && mkdir -p /var/task/dist/bin && \
  cp -r /tmp/USD/lib/. /var/task/dist/lib && cp -r /tmp/USD/bin/. /var/task/dist/bin
 
@@ -85,7 +87,6 @@ RUN /tmp/USD/bin/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/
   cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
 
 
-# ENV PYTHONPATH /tmp/USD/lib/python/
 
 # ENV PATH ${PATH}:/tmp/USD/bin/
 
