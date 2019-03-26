@@ -68,7 +68,8 @@ RUN cd /tmp && \
 RUN cd /tmp/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /tmp/gltf2usd/Source:/tmp/USD/lib/python/
 
-#ENV PYTHONPATH /tmp/USD/lib/python/
+ENV PYTHONPATH /tmp/USD/lib/python/
+
 # ENV PATH ${PATH}:/tmp/USD/bin/
 
 #RUN /tmp/gltf2usd/Source/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc
