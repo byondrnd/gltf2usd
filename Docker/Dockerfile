@@ -78,9 +78,10 @@ RUN cd /tmp/USD/bin && \
 RUN cp /tmp/USD/bin/dist/usdzip /var/task/dist/usdzip
 
 RUN /var/task/dist/gltf2usd -g /tmp/gltf2usd/Docker/test/input.gltf -o /tmp/gltf2usd/Docker/test/output.usdc
-RUN /var/task/dist/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/gltf2usd/Docker/test/output.usdc
+RUN cp /tmp/gltf2usd/Docker/test/output.usdc /var/task/dist/output.usdc
 
-RUN cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
+# RUN /var/task/dist/usdzip /tmp/gltf2usd/Docker/test/output.usdz --arkitAsset /tmp/gltf2usd/Docker/test/output.usdc
+# RUN cp /tmp/gltf2usd/Docker/test/output.usdz /var/task/dist/output.usdz
 
 
 # ENV PYTHONPATH /tmp/USD/lib/python/
