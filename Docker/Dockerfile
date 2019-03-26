@@ -70,10 +70,8 @@ RUN cd /usr/local && \
 RUN cd /usr/local/gltf2usd/Source && \
   pyinstaller --onefile gltf2usd.py -p /usr/local/gltf2usd/Source:/usr/local/USD/lib/python/
 
-
-# ENV PYTHONPATH /usr/local/USD/lib/python/
+ENV PYTHONPATH /usr/local/USD/lib/python/
 # ENV PATH ${PATH}:/usr/local/USD/bin/
 
-# RUN /usr/local/gltf2usd/Source/dist/gltf2usd -g /usr/local/gltf2usd/Docker/test/input.gltf -o /usr/local/gltf2usd/Docker/test/output.usdc
-
-# RUN /usr/local/USD/bin/usdzip /usr/local/gltf2usd/Docker/test/output.usdz --arkitAsset /usr/local/gltf2usd/Docker/test/output.usdc
+RUN /usr/local/gltf2usd/Source/dist/gltf2usd -g /usr/local/gltf2usd/Docker/test/input.gltf -o /usr/local/gltf2usd/Docker/test/output.usdc
+RUN /usr/local/USD/bin/usdzip /usr/local/gltf2usd/Docker/test/output.usdz --arkitAsset /usr/local/gltf2usd/Docker/test/output.usdc
